@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devnot-workshop-command
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: devnot-workshop-command
+  template:
+    metadata:
+      labels:
+        app: devnot-workshop-command
+      annotations:
+        linkerd.io/inject: disabled
+    spec:
+      containers:
+        - name: devnot-workshop-command
+          image: eu.gcr.io/mydemo-293521/devnot-workshop:0.0.1
+          args: ["api","command", "-p", "5001", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devnot-workshop-query
+  namespace: default
+spec:
+  replicas: 20
+  selector:
+    matchLabels:
+      app: devnot-workshop-query
+  template:
+    metadata:
+      labels:
+        app: devnot-workshop-query
+      annotations:
+        linkerd.io/inject: disabled
+    spec:
+      containers:
+        - name: devnot-workshop-query
+          image: eu.gcr.io/mydemo-293521/devnot-workshop:0.0.1
+          args: ["api","query", "-p", "5000", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
+      terminationGracePeriodSeconds: 30
