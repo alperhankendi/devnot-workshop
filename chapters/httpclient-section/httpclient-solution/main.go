@@ -1,33 +1,46 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
-	"github.com/alperhankendi/devnot-workshop/pkg/httpclient"
+	"github.com/valyala/fasthttp"
 	"sync"
+	"time"
 )
 
-var client *httpclient.HttpCall
+var client *fasthttp.Client
+var lock sync.Mutex
+var counter int
 
 func main() {
 
-	strURL := "https://sampleapis.com/"
-
-	client = httpclient.NewHttpClient(strURL, "5s")
-
+	client = &fasthttp.Client{
+		TLSConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
 	wg := sync.WaitGroup{}
 	for i := 0; i < 50000; i++ {
 		wg.Add(1)
 		go func() {
 			GetReply()
+			lock.Lock()
+			counter++
+			lock.Unlock()
 			defer wg.Done()
 		}()
 	}
 	wg.Wait()
+	fmt.Printf("Total hit : %d\n", counter)
 }
 
 func GetReply() string {
 
-	res := client.Get("beers/api/ale")
-	fmt.Printf("Res status: %d", res.StatusCode)
+	req := fasthttp.AcquireRequest()
+	resp := fasthttp.AcquireResponse()
+	//req.SetRequestURI("https://sampleapis.com/beers/api/ale")
+	req.SetRequestURI("http://localhost:9000/5")
+	client.DoTimeout(req, resp, time.Millisecond*500)
+	fmt.Printf("Res status: %d\n", resp.StatusCode())
 	return ""
 }

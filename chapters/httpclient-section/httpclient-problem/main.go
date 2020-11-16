@@ -11,15 +11,13 @@ var client *http.Client
 
 func main() {
 
-	// The URL to request
-
-	// Also add timeouts for connections
 	tr := &http.Transport{
 		TLSHandshakeTimeout: 10 * time.Second,
 		//DisableKeepAlives:   false,
 		//MaxIdleConns:        500,
 		//MaxConnsPerHost: 500,
 		//MaxIdleConnsPerHost: 500,
+
 	}
 	client = &http.Client{
 		Transport: tr,
