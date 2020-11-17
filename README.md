@@ -9,6 +9,70 @@ README
 - [Golang mongo driver](https://github.com/mongodb/mongo-go-driver)
 - [Docker](docker.com) for mongo
 
+#### struct
+
+![Doc](docs/api.png)
+
+#### folder structure
+
+```
+❯ tree
+.
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── build
+│   ├── deployment.yaml
+│   └── service.yaml
+├── cmd
+│   ├── command.go
+│   ├── query.go
+│   └── root.go
+├── docs
+│   ├── api.png
+│   └── api.puml
+├── go.mod
+├── internal
+│   └── movies
+│       ├── controller
+│       │   ├── dispatcher.go
+│       │   ├── endpoint.go
+│       │   └── transport.go
+│       ├── mongo
+│       │   └── mongo_repository.go
+│       ├── service.go
+│       └── types.go
+├── load-post.js
+├── load.js
+├── main.go
+└── pkg
+    ├── echoextention
+    │   ├── gate_logger.go
+    │   ├── healthcheck
+    │   │   ├── healthcheck.go
+    │   │   ├── healtycheck_test.go
+    │   │   └── mongoChecker.go
+    │   ├── instrument.go
+    │   ├── recovery.go
+    │   └── shutdown.go
+    ├── errors
+    │   ├── error.go
+    │   ├── error_definition.go
+    │   ├── errors.go
+    │   └── statusCode.go
+    ├── httpclient
+    │   └── client.go
+    ├── log
+    │   └── logrus.go
+    ├── mongoextentions
+    │   ├── errors.go
+    │   ├── mongo.go
+    │   └── mongo_test.go
+    └── utils
+        └── mytime.go
+```
+
 #### build
 
 ```

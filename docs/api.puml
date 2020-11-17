@@ -1,0 +1,30 @@
+@startuml
+
+package "api" {
+    class Command << bootstrapper>>{}
+    class Transport << Handler Registration>>{}
+    class Resource <<controller>>{}
+    class Echo << http handler>> {}
+    class Service <<domain service>>{
+        Get(id string) (Movie,error)
+        Create(item *Movie) (err error)
+    }
+    class Movie <<class>>{}
+
+    interface Repository{
+        Get(id string) (Movie,error)
+        Create(item *Movie) (err error)
+    }
+
+    Transport --> Command
+    Resource --> Transport
+    Echo -left-> Transport
+    Service -right-> Resource
+    Repository  -up-> Service
+    Movie  -up-> Service
+
+
+    MongoRepository -up-> Repository
+    MongoDatabase -up-> MongoRepository
+}
+@enduml
