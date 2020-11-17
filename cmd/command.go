@@ -27,7 +27,7 @@ var cmd = &cmdCommand{
 }
 
 func init() {
-	apiCmd.AddCommand(cmd.command)
+	rootCmd.AddCommand(cmd.command)
 
 	cmd.instance = echo.New()
 	cmd.instance.Logger = log.SetupLogger()

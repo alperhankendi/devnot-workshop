@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/alperhankendi/devnot-workshop/internal/movies"
 	"github.com/alperhankendi/devnot-workshop/pkg/log"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -13,9 +12,6 @@ import (
 type (
 	resource struct {
 		service *movies.Service
-
-		//Ver3
-		queue chan *movies.Movie
 	}
 )
 
@@ -23,13 +19,8 @@ func NewController(srv *movies.Service) *resource {
 
 	r := &resource{
 		service: srv,
-		//Ver3
-		queue: make(chan *movies.Movie, 10000),
 	}
-	//Ver3
-	go r.startProcessor()
 
-	//Ver4
 	JobQueue = make(chan Job, MaxQueue)
 	dispatcher := NewDispatcher(MaxWorker)
 	dispatcher.Run(r)
@@ -65,34 +56,12 @@ func (receiver *resource) CreateV3(c echo.Context) error {
 	if err := c.Bind(&item); err != nil {
 		return c.JSON(http.StatusBadRequest, fmt.Sprintf("failed to parse request. Error:%s", err.Error()))
 	}
-	receiver.queue <- item
-	return c.JSON(http.StatusCreated, "")
-}
-func (receiver *resource) CreateV4(c echo.Context) error {
-
-	item := new(movies.Movie)
-	if err := c.Bind(&item); err != nil {
-		return c.JSON(http.StatusBadRequest, fmt.Sprintf("failed to parse request. Error:%s", err.Error()))
-	}
 
 	work := Job{Payload: item}
 	JobQueue <- work
 
 	return c.JSON(http.StatusCreated, "")
 }
-func (receiver *resource) startProcessor() {
-
-	for {
-		select {
-		case item := <-receiver.queue:
-			receiver.service.Create(context.Background(), item)
-			//fmt.Printf("processed.\n")
-		}
-	}
-}
-
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
-
 func (receiver *resource) GetV1(c echo.Context) error {
 
 	id := c.Param("id")
@@ -103,8 +72,7 @@ func (receiver *resource) GetV1(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	result, _ := json.Marshal(&item)
-	return c.String(http.StatusOK, string(result))
+	return c.JSON(http.StatusOK, item)
 }
 
 var (
@@ -114,7 +82,6 @@ var (
 
 type Job struct {
 	Payload *movies.Movie
-	r       *resource
 }
 
 var JobQueue chan Job

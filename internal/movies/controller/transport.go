@@ -10,7 +10,6 @@ func BuildCommandHandler(instance *echo.Echo, s *resource) {
 
 	g := instance.Group("api/v1")
 
-	g.POST("/v4", s.CreateV4, durationMethod)
 	g.POST("/v3", s.CreateV3, durationMethod)
 	g.POST("/v2", s.CreateV2, durationMethod)
 	g.POST("/v1", s.CreateV1, durationMethod)

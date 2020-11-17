@@ -26,7 +26,7 @@ var queryCmd = &queryCommand{
 }
 
 func init() {
-	apiCmd.AddCommand(queryCmd.command)
+	rootCmd.AddCommand(queryCmd.command)
 
 	queryCmd.instance = echo.New()
 	queryCmd.instance.Debug = false

@@ -10,7 +10,7 @@ function randomString(length) {
 
 export default function () {
 
-    var url = 'http://127.0.0.1:5001/api/v1/v4';
+    var url = 'http://127.0.0.1:5001/api/v1/v3';
 
     var pl = {
         "title": "Miss Jerry",
