@@ -1,13 +1,11 @@
-README
-
-
+### Developer summit 2020@workshop
 #### tools & libraries
 
 - [Echo web framework](https://echo.labstack.com/)
 - [Cobra](https://cobra.dev/) A Commander for modern Go CLI interactions 
 - [K6](https://k6.io/docs/getting-started/installation)
 - [Golang mongo driver](https://github.com/mongodb/mongo-go-driver)
-- [Docker](docker.com) for mongo
+- [Docker](https://www.docker.com) for mongo
 
 #### struct
 
