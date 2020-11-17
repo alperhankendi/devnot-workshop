@@ -12,6 +12,7 @@ README
 
 ```
 $ git clone https://github.com/alperhankendi/devnot-workshop.git
+$ git checkout api-final
 $ cd devnot-workshop
 $ make build
 $ ./devnot-workshop
