@@ -3,9 +3,11 @@
 #### get repo
 ```
 git clone https://github.com/alperhankendi/devnot-workshop.git
+git checkout api-new
 ```
 
-#### cache sample
+#### final source code
 ```
-git checkout chapter-01
+git checkout api-final
 ```
+![Readme](https://github.com/alperhankendi/devnot-workshop/blob/api-final/README.md)
