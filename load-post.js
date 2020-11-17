@@ -10,7 +10,7 @@ function randomString(length) {
 
 export default function () {
 
-    var url = 'http://127.0.0.1:5001/api/v1/v4';
+    var url = 'http://127.0.0.1:5001/api/v1/';
 
     var pl = {
         "title": "Miss Jerry",
@@ -33,6 +33,6 @@ export default function () {
     };
     const res = http.post(url, payload, params);
     const checkRes = check(res, {
-        'status is 200': (r) => r.status === 201,
+        'status is 201': (r) => r.status === 201,
     });
 }

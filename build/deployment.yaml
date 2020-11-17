@@ -18,7 +18,7 @@ spec:
       containers:
         - name: devnot-workshop-command
           image: eu.gcr.io/mydemo-293521/devnot-workshop:0.0.1
-          args: ["api","command", "-p", "5001", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
+          args: ["command", "-p", "5001", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
       terminationGracePeriodSeconds: 30
 ---
 apiVersion: apps/v1
@@ -27,7 +27,7 @@ metadata:
   name: devnot-workshop-query
   namespace: default
 spec:
-  replicas: 20
+  replicas: 1
   selector:
     matchLabels:
       app: devnot-workshop-query
@@ -41,5 +41,5 @@ spec:
       containers:
         - name: devnot-workshop-query
           image: eu.gcr.io/mydemo-293521/devnot-workshop:0.0.1
-          args: ["api","query", "-p", "5000", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
+          args: ["query", "-p", "5000", "-d", "imdb", "-c", "mongodb://10.164.0.7:27017"]
       terminationGracePeriodSeconds: 30
