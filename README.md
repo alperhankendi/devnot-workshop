@@ -10,4 +10,4 @@ git checkout api-new
 ```
 git checkout api-final
 ```
-![Readme](https://github.com/alperhankendi/devnot-workshop/blob/api-final/README.md)
+[Readme](https://github.com/alperhankendi/devnot-workshop/blob/api-final/README.md)
