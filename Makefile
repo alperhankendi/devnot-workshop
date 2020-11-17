@@ -32,7 +32,7 @@ docker-build: ## build the cli as a docker image
 
 .PHONY: docker-tag
 docker-tag:
-	docker tag demo:latest eu.gcr.io/mydemo-293521/devnot-workshop:$(DOCKER_TAG_VERSION)
+	docker tag $(CMD_NAME):latest eu.gcr.io/mydemo-293521/devnot-workshop:$(DOCKER_TAG_VERSION)
 
 .PHONY: docker-push
 docker-push:
