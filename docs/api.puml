@@ -27,6 +27,4 @@ package "api" {
     MongoRepository -up-> Repository
     MongoDatabase -up-> MongoRepository
 }
-
-
 @enduml
