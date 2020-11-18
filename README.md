@@ -6,6 +6,29 @@ README
 
 ![Design](docs/api.png)
 
+### service runner
+```
+$> ❯ ./devnot-workshop
+Devnote workshop application
+
+Usage:
+  devnot-workshop [flags]
+  devnot-workshop [command]
+
+Available Commands:
+  command     Command Service
+  help              Help about any command
+  query            Query Service
+
+Flags:
+  -c, --conn 	string     	database connection string
+  -d, --dbname string   	database name (default "imdb")
+  -h, --help            		help for devnot-workshop
+  -p, --port 	string    	Service Port (default "5001")
+
+Use "devnot-workshop [command] --help" for more information about a command.
+
+```
 
 movie data structure
 ```
