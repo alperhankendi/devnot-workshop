@@ -4,7 +4,7 @@ metadata:
   name: devnot-workshop-command
   namespace: default
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: devnot-workshop-command

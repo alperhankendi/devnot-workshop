@@ -15,18 +15,6 @@ type (
 	}
 )
 
-func NewController(srv *movies.Service) *resource {
-
-	r := &resource{
-		service: srv,
-	}
-
-	JobQueue = make(chan Job, MaxQueue)
-	dispatcher := NewDispatcher(MaxWorker)
-	dispatcher.Run(r)
-	return r
-}
-
 func (receiver *resource) CreateV1(c echo.Context) error {
 
 	item := new(movies.Movie)
@@ -79,6 +67,18 @@ var (
 	MaxWorker = 3 * 2
 	MaxQueue  = 20
 )
+
+func NewController(srv *movies.Service) *resource {
+
+	r := &resource{
+		service: srv,
+	}
+
+	JobQueue = make(chan Job, MaxQueue)
+	dispatcher := NewDispatcher(MaxWorker)
+	dispatcher.Run(r)
+	return r
+}
 
 type Job struct {
 	Payload *movies.Movie
